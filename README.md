@@ -1,6 +1,6 @@
 CREATING THE PLAN:
 
-What HTML pages do you need?
+What HTML pages/partials do you need?
 What is needed ON the page?
 
 Look at each model:
@@ -22,6 +22,7 @@ Login HTML
     $location.path
 
 Main Dashboard HTML
+  show current user
   Index of Topics with populated _user and _category
     show topic link
     show user link

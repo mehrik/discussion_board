@@ -1,4 +1,4 @@
-myApp.controller('TopicsController', function($routeParams, TopicFactory, CategoryFactory, UserFactory) {
+myApp.controller('TopicsController', function($routeParams, TopicFactory, CategoryFactory, UserFactory, PostFactory) {
     var _this = this;
 
     this.index = function () {
@@ -43,6 +43,16 @@ myApp.controller('TopicsController', function($routeParams, TopicFactory, Catego
             _this.displayTopic = retrievedTopic;
             console.log(_this.displayTopic);
         });
+    }
+
+    // Retrieve newPost.content
+    // Update current post
+    this.createPost = function () {
+        // setting up newPost._user & _topic for ease of creating a new post object
+        _this.newPost._user = _this.displayTopic._user
+        _this.newPost._topic = _this.displayTopic;
+        console.log(_this.newPost);
+        _this.newPost = {};
     }
 
     this.index();

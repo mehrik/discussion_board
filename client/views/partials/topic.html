@@ -6,8 +6,13 @@
     <a ng-href="#/user/{{TC.displayTopic._user._id}}">
     <span ng-bind='TC.displayTopic._user.name'></span></a> posted a topic
 </h2>
-
 <h4 ng-bind='TC.displayTopic.title'></h4>
-
 <h4>Description: <span ng-bind='TC.displayTopic.description'></span></h4>
 
+
+<!-- new post form -->
+<h4>Post you answers here...</h4>
+<form>
+    <textarea ng-model='TC.newPost.content'></textarea>
+    <button ng-click='TC.createPost()'>Submit!</button>
+</form>
