@@ -1,0 +1,13 @@
+<div class='u-pull-right'>
+    <a href="#/dashboard">Dashboard</a> | <a href="#/">Logout</a>
+</div>
+
+<h2>
+    <a ng-href="#/user/{{TC.displayTopic._user._id}}">
+    <span ng-bind='TC.displayTopic._user.name'></span></a> posted a topic
+</h2>
+
+<h4 ng-bind='TC.displayTopic.title'></h4>
+
+<h4>Description: <span ng-bind='TC.displayTopic.description'></span></h4>
+

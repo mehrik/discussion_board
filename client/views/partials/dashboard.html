@@ -1,0 +1,59 @@
+<div class='u-pull-right'>
+    <a href="#/">Logout</a>
+</div>
+
+<!-- show current user name -->
+<h1>Welcome, <span ng-bind="TC.current_user.name"></span></h1>
+
+<!-- Filter the Topics table -->
+<!-- enter in information, search on submit -->
+<input type='text'>
+<button>Search</button>
+
+<!-- index of topics -->
+<!-- _user is populated -->
+<!-- _category is populated -->
+<!-- post length -->
+<table class='table u-full-width'>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Topic</th>
+            <th>User Name</th>
+            <th>Posts</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat='topic in TC.topics'>
+            <td>
+                <a ng-href="#/topic/{{topic._id}}">
+                    <span  ng-bind='topic._category.name'></span>
+                </a>
+            </td>
+            <td ng-bind='topic.title'></td>
+            <td>
+                <a ng-href="#/user/{{topic._user._id}}">
+                    <span ng-bind='topic._user.name'></span>
+                </a>
+            </td>
+            <td ng-bind='topic.posts.length'></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- New topic form -->
+<!-- select feature needs to have information populated from categories -->
+<h3>Add new topic</h3>
+<form>
+    <label>Topic</label>
+    <input type='text' ng-model='TC.newTopic.title'>
+
+    <label>Description</label>
+    <textarea ng-model='TC.newTopic.description'></textarea>
+
+    <label>Category</label>
+    <select ng-options='category.name for category in TC.categories' ng-model='TC.newTopic._category'></select>
+
+    <button ng-click='TC.create()'>Submit</button>
+</form>
+
