@@ -18,16 +18,25 @@
 </form>
 <hr>
 
-<div class='Post' ng-repeat='post in TC.displayTopic.posts'>
+<div class='Post' ng-repeat='post in TC.displayTopic.posts | orderBy:"-created_at"'>
     <!-- username: post -->
     <p><a ng-href="#/user/{{post._user._id}}"><span ng-bind='post._user.name'></span></a> : <span ng-bind='post.content'></span></p>
+
+    <div class='Comments'></div>
+
+    <form>
+        <textarea ng-model='TC.newComment.content'></textarea>
+        <button>Comment!</button>
+    </form>
+    <hr>
 </div>
 
-<ul ng-repeat="post in TC.displayTopic.posts">
+<ul ng-repeat="post in TC.displayTopic.posts | orderBy:'-created_at'">
 <!-- need to use deepPopulate for these nested items -->
 <!-- need to deepPopulate comments._user.name -->
     <li ng-bind='post._user._id'></li>
     <li ng-bind='post.content'></li>
     <li ng-bind='post._user.name'></li>
     <li ng-bind='post.comments'></li>
+    <li ng-bind='post.created_at'></li>
 </ul>
