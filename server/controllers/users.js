@@ -62,6 +62,28 @@ module.exports = (function () {
                         res.json(user)
                     }// end if
                 });// end function and update
+        },// end function
+
+        // Update post
+        updatePost: function (req, res) {
+            var user_id = req.body._user;
+            var topic_id = req.body._topic;
+            var post_id = req.body._id;
+            User.findByIdAndUpdate(
+                user_id,
+                { $push: { posts: post_id } },
+                function (err, user) {
+                    // console.log('Errors in updatePost', err);
+                    // console.log('User found', user);
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        // user returned is not updated
+                        // however afterwards information is updated
+                        // after fully running the function
+                        res.json(user)
+                    }// end if
+                });// end function and update
         }// end function
     }// end of object
 })();

@@ -35,24 +35,32 @@ myApp.controller('TopicsController', function($routeParams, TopicFactory, Catego
         });
     }
 
-    if($routeParams.topicId) {
-        var topic_id = $routeParams.topicId;
+    this.show = function (topic_id) {
         // Retrieve tpoic information 
         // Set retrieved topic information to _this.displayTopic
         TopicFactory.show(topic_id, function (retrievedTopic) {
             _this.displayTopic = retrievedTopic;
-            console.log(_this.displayTopic);
         });
+    }
+
+    if($routeParams.topicId) {
+        var topic_id = $routeParams.topicId;
+        _this.show(topic_id);
     }
 
     // Retrieve newPost.content
     // Update current post
     this.createPost = function () {
         // setting up newPost._user & _topic for ease of creating a new post object
-        _this.newPost._user = _this.displayTopic._user
+        // _this.current user is from user being previously logged in
+        // _this.displayTopic is from the topic that is being shown
+        _this.newPost._user = _this.current_user
         _this.newPost._topic = _this.displayTopic;
-        console.log(_this.newPost);
-        _this.newPost = {};
+        // create new post, if successfully clear out _this.newPost
+        PostFactory.create(_this.newPost, function () {
+            _this.newPost = {};
+            _this.show($routeParams.topicId);
+        });
     }
 
     this.index();

@@ -11,3 +11,6 @@ var TopicSchema = new mongoose.Schema({
 });
 
 var Topic = mongoose.model('Topic', TopicSchema)
+
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
+TopicSchema.plugin(deepPopulate);

@@ -37,12 +37,24 @@ module.exports = (function () {
         },// end function
 
         // Show one
+        // may have to use deep populate as posts.comments would also need
+        // to be populated
         show: function (req, res) {
             // Use findOne only for show methods
             // Populate topic with _user and posts
+            // Topic.findOne({_id: req.params.id})
+            // .populate('_user')
+            // .populate('posts')
+            // .exec(function (err, topic) {
+            //     if (err) {
+            //         res.json(err);
+            //     } else {
+            //         res.json(topic);
+            //     }// end if
+            // });// end function
+
             Topic.findOne({_id: req.params.id})
-            .populate('_user')
-            .populate('posts')
+            .deepPopulate('_user.name posts._user.name posts.content posts.comments')
             .exec(function (err, topic) {
                 if (err) {
                     res.json(err);
@@ -53,7 +65,22 @@ module.exports = (function () {
         },
         // Update
         update: function (req, res) {
-            res.json('topics.update');
-        }
+            var topic_id = req.params.id;
+            var post_id = req.body._id;
+            Topic.findByIdAndUpdate(
+                topic_id,
+                { $push: { posts: post_id }},
+                function (err, topic) {
+                    console.log('Errors in topics.update', err);
+                    console.log('Topic found not updated', topic);
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        // Topic object is returned, however no updated
+                        // Topic update is saved after object is returned
+                        res.json(topic);
+                    }// end if
+                });// end function and update
+        }// end function
     }// end of object
 })();

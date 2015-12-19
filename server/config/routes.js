@@ -27,6 +27,7 @@ module.exports = function(app) {
 
     // Update one
     app.patch('/user/:id/topic', user.updateTopic);
+    app.patch('/user/:id/post', user.updatePost);
     app.patch('/topic/:id', topic.update);
     app.patch('/post/:id', post.update);
 }

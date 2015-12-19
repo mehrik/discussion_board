@@ -9,8 +9,18 @@ module.exports = (function () {
         },
         // Create one
         create: function (req, res) {
-            res.json('posts.create');
-        },
+            var new_post = new Post(req.body);
+            new_post.save(function (err, post) {
+                // console.log('Errors in posts.create', err);
+                // console.log('New post:', post);
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(post);
+                }// end if
+            });// end save
+        },// end function
+
         // Show one
         show: function (req, res) {
             res.json('posts.show');
