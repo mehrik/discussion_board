@@ -30,4 +30,6 @@ module.exports = function(app) {
     app.patch('/user/:id/post', user.updatePost);
     app.patch('/topic/:id', topic.update);
     app.patch('/post/:id', post.update);
+    app.patch('/post/:id/likes', post.updateLikes);
+    app.patch('/post/:id/dislikes', post.updateDislikes);
 }

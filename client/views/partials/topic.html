@@ -22,6 +22,14 @@
     <!-- username: post -->
     <p><a ng-href="#/user/{{post._user._id}}"><span ng-bind='post._user.name'></span></a> : <span ng-bind='post.content'></span></p>
 
+    <!-- Have people be able to like or dislike the post -->
+    <!-- user who posted cannot like or dislike his own post -->
+    <p>
+        <button ng-click="TC.updateLikes(post, TC.current_user)">like <span ng-bind='post.likes'></span></button> 
+        <button ng-click="TC.updateDislikes(post, TC.current_user)">dislike <span ng-bind='post.dislikes'></span></button> 
+    </p>
+
+    <!-- have comments relating to the post here -->
     <div class='Comments'></div>
 
     <form>

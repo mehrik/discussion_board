@@ -1,4 +1,4 @@
-myApp.controller('TopicsController', function($routeParams, TopicFactory, CategoryFactory, UserFactory, PostFactory) {
+myApp.controller('TopicsController', function($routeParams, $location, TopicFactory, CategoryFactory, UserFactory, PostFactory) {
     var _this = this;
 
     this.index = function () {
@@ -63,5 +63,26 @@ myApp.controller('TopicsController', function($routeParams, TopicFactory, Catego
         });
     }
 
+    // updates the like on a post
+    // Current user cannot like his/her own post
+    this.updateLikes = function (post, CurrentUser) {
+        PostFactory.updateLikes(post, post._user, CurrentUser, function () {
+            _this.show($routeParams.topicId);
+        });
+    }
+
+    // updates the dislike on a post
+    // Current user cannot dislike his/her own post
+    this.updateDislikes = function (post, CurrentUser) {
+        PostFactory.updateDislikes(post, post._user, CurrentUser, function () {
+            _this.show($routeParams.topicId);
+        });
+    }
+
     this.index();
+
+    // if no user is signed in, redirect to login page
+    if(!_this.current_user) {
+        $location.path('/');
+    }
 });

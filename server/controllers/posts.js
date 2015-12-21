@@ -4,8 +4,15 @@ var Post = mongoose.model('Post');
 module.exports = (function () {
     return {
         // Return all
+        // Possibly delete later
         index: function (req, res) {
-            res.json('posts.index');
+            Post.find({}, function (err, posts) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(posts);
+                }
+            });
         },
         // Create one
         create: function (req, res) {
@@ -25,9 +32,32 @@ module.exports = (function () {
         show: function (req, res) {
             res.json('posts.show');
         },
-        // Update
+        // Inserts comments into comment array
         update: function (req, res) {
             res.json('posts.update');
+        },
+        // Updates likes
+        updateLikes: function (req, res) {
+            console.log(req.params.id);
+            Post.findOneAndUpdate(
+                {_id: req.params.id},
+                {$inc: { likes: 1 }},
+                function (err, post) {
+                    // console.log(err, post);
+                    res.json();
+                }// end function
+            );// end findOne
+        },
+        // Updates dislikes
+        updateDislikes: function (req, res) {
+            Post.findOneAndUpdate(
+                {_id: req.params.id},
+                {$inc: { dislikes: 1 }},
+                function (err, post) {
+                    // console.log(err, post);
+                    res.json();
+                }// end function
+            );// end findOne
         }
     }// end of object
 })();

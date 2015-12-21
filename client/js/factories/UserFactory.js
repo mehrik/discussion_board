@@ -24,6 +24,7 @@ myApp.factory('UserFactory', function ($http) {
         });
     }
 
+    // Inserts newly created topic id into the user's topics array
     factory.update = function(newTopic, callback) {
         console.log("UF", newTopic);
         $http.patch('/user/'+newTopic._user+'/topic', newTopic).success(function (output) {
