@@ -24,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat='topic in TC.topics'>
+        <tr ng-repeat='topic in TC.topics | orderBy:"-created_at"'>
             <td>
                 <a ng-href="#/topic/{{topic._id}}">
                     <span  ng-bind='topic._category.name'></span>
