@@ -38,7 +38,6 @@ module.exports = (function () {
         },
         // Updates likes
         updateLikes: function (req, res) {
-            console.log(req.params.id);
             Post.findOneAndUpdate(
                 {_id: req.params.id},
                 {$inc: { likes: 1 }},
@@ -58,6 +57,17 @@ module.exports = (function () {
                     res.json();
                 }// end function
             );// end findOne
-        }
+        },
+        // Pushes new comment into comments
+        updateComments: function (req, res) {
+            Post.findOneAndUpdate(
+                {_id: req.params.id},
+                {$push: { comments: req.body }},
+                function (err, post) {
+                    console.log(err, post);
+                    res.json();
+                }// end function
+            );// end findOne
+        }// end updateComments
     }// end of object
 })();

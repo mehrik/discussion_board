@@ -29,8 +29,7 @@ module.exports = (function () {
                     }); // end save
                 } // end else
             }); // end findOne
-
-        }, // end function
+        }, // end create
 
         // Show one
         show: function (req, res) {
@@ -42,7 +41,8 @@ module.exports = (function () {
                     res.json(user);
                 }// end if
             });// end find
-        },
+        },// end show
+
         // Update
         updateTopic: function (req, res) {
             var user_id = req.body._user;
@@ -62,7 +62,7 @@ module.exports = (function () {
                         res.json(user)
                     }// end if
                 });// end function and update
-        },// end function
+        },// end updateTopic
 
         // Update post
         updatePost: function (req, res) {
@@ -84,6 +84,21 @@ module.exports = (function () {
                         res.json(user)
                     }// end if
                 });// end function and update
-        }// end function
+        },// end updatePost
+
+        updateComment: function (req, res) {
+            var user_id = req.body._user;
+            var comment_id = req.body._id;
+            User.findByIdAndUpdate(
+                user_id,
+                { $push: { comments: comment_id } },
+                function (err, user) {
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        res.json();
+                    }// end if
+                });// end function and update
+        }// end updateComment
     }// end of object
 })();

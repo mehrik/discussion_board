@@ -25,11 +25,17 @@ module.exports = function(app) {
     app.get('/topic/:id', topic.show);
     app.get('/post/:id', post.show);
 
-    // Update one
+    // Update one user
     app.patch('/user/:id/topic', user.updateTopic);
     app.patch('/user/:id/post', user.updatePost);
+    app.patch('/user/:id/comment', user.updateComment);
+
+    // Update one topic
     app.patch('/topic/:id', topic.update);
+
+    // Update one post
     app.patch('/post/:id', post.update);
     app.patch('/post/:id/likes', post.updateLikes);
     app.patch('/post/:id/dislikes', post.updateDislikes);
+    app.patch('/post/:id/comment', post.updateComments);
 }

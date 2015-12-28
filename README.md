@@ -9,7 +9,10 @@ Look at each model:
 
 Look at the validations, what validations do you need?
 
-
+CREATING A COMMENT
+Creat the comment
+Push comment into the post
+Push comment into the user
 
 
 

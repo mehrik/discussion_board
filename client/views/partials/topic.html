@@ -30,11 +30,15 @@
     </p>
 
     <!-- have comments relating to the post here -->
-    <div class='Comments'></div>
+    <div class='Comments' ng-repeat='comment in post.comments'>
+        {{comment._user.name}}
+        {{comment.content}}
+    </div>
 
+    <!-- make it so when you are typing in a comment, it does not show up in other boxes -->
     <form>
-        <textarea ng-model='TC.newComment.content'></textarea>
-        <button>Comment!</button>
+        <textarea ng-model='post.newComment.content'></textarea>
+        <button ng-click='TC.createComment(post)'>Comment!</button>
     </form>
     <hr>
 </div>

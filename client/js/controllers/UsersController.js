@@ -14,6 +14,7 @@ myApp.controller('UsersController', function ($location, $routeParams, UserFacto
 
     if($routeParams.userId) {
         var user_id = $routeParams.userId;
+        console.log('doing the users stuff!');
         // Retrieve user information 
         // Set retrieved user information to _this.displayUser
         UserFactory.show(user_id, function (retrievedUser) {
@@ -21,4 +22,6 @@ myApp.controller('UsersController', function ($location, $routeParams, UserFacto
             console.log(_this.displayUser);
         });
     }
+
+    console.log('You are in the usersController');
 });

@@ -1,4 +1,4 @@
-myApp.controller('TopicsController', function($routeParams, $location, TopicFactory, CategoryFactory, UserFactory, PostFactory) {
+myApp.controller('TopicsController', function ($routeParams, $location, TopicFactory, CategoryFactory, UserFactory, PostFactory, CommentFactory) {
     var _this = this;
 
     this.index = function () {
@@ -43,6 +43,7 @@ myApp.controller('TopicsController', function($routeParams, $location, TopicFact
         });
     }
 
+    // If topicID exists in the route, retrieve data for that specific topic
     if($routeParams.topicId) {
         var topic_id = $routeParams.topicId;
         _this.show(topic_id);
@@ -75,6 +76,18 @@ myApp.controller('TopicsController', function($routeParams, $location, TopicFact
     // Current user cannot dislike his/her own post
     this.updateDislikes = function (post, CurrentUser) {
         PostFactory.updateDislikes(post, post._user, CurrentUser, function () {
+            _this.show($routeParams.topicId);
+        });
+    }
+
+    this.createComment = function (post) {
+        // Created object for use in comments.js
+        // post parameter is the post where the new comment is created in
+        post.newComment._user = _this.current_user;
+        console.log('from the TC', post);
+        CommentFactory.create(post, function () {
+            // refresh page so new comments are shown
+            // refreshing the page automatically clears out the form
             _this.show($routeParams.topicId);
         });
     }

@@ -54,7 +54,7 @@ module.exports = (function () {
             // });// end function
 
             Topic.findOne({_id: req.params.id})
-            .deepPopulate('_user.name posts._user.name posts.content posts.comments')
+            .deepPopulate('_user.name posts._user.name posts.content posts.comments posts.comments._user posts.comments.content')
             .exec(function (err, topic) {
                 if (err) {
                     res.json(err);
