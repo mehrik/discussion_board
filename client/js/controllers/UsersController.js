@@ -12,6 +12,11 @@ myApp.controller('UsersController', function ($location, $routeParams, UserFacto
         });
     }
 
+    this.logout = function () {
+        UserFactory.clearCurrentUser(function () {});
+        $location.path('/');
+    }
+
     if($routeParams.userId) {
         var user_id = $routeParams.userId;
         console.log('doing the users stuff!');
@@ -22,6 +27,5 @@ myApp.controller('UsersController', function ($location, $routeParams, UserFacto
             console.log(_this.displayUser);
         });
     }
-
-    console.log('You are in the usersController');
+    
 });

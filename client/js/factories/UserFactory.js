@@ -26,7 +26,7 @@ myApp.factory('UserFactory', function ($http) {
 
     // Inserts newly created topic id into the user's topics array
     factory.update = function(newTopic, callback) {
-        console.log("UF", newTopic);
+        // console.log("UF", newTopic);
         $http.patch('/user/'+newTopic._user+'/topic', newTopic).success(function (output) {
             console.log(output);
             callback();
@@ -35,6 +35,11 @@ myApp.factory('UserFactory', function ($http) {
 
     factory.getCurrentUser = function(callback) {
         callback(_UF.current_user);
+    }
+
+    factory.clearCurrentUser = function (callback) {
+        _UF.current_user = null;
+        callback();
     }
 
     return factory;

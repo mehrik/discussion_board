@@ -92,6 +92,11 @@ myApp.controller('TopicsController', function ($routeParams, $location, TopicFac
         });
     }
 
+    this.logout = function () {
+        UserFactory.clearCurrentUser(function () {});
+        $location.path('/');
+    }
+
     this.index();
 
     // if no user is signed in, redirect to login page

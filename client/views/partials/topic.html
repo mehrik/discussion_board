@@ -1,54 +1,52 @@
 <div class='u-pull-right'>
-    <a href="#/dashboard">Dashboard</a> | <a href="#/">Logout</a>
+    <a href="#/dashboard">Dashboard</a> | <a href="" ng-click='TC.logout()'>Logout</a>
 </div>
 
 <h2>
     <a ng-href="#/user/{{TC.displayTopic._user._id}}">
     <span ng-bind='TC.displayTopic._user.name'></span></a> posted a topic
 </h2>
-<h4 ng-bind='TC.displayTopic.title'></h4>
-<h4>Description: <span ng-bind='TC.displayTopic.description'></span></h4>
+<div class='offset-by-one eleven columns'>
+    <h5><strong><em ng-bind="TC.displayTopic.title"></em></strong></h5>
+    <h5>Description: <span ng-bind='TC.displayTopic.description'></span></h5>
+</div>
 
 
 <!-- new post form -->
 <h4>Post you answers here...</h4>
-<form>
-    <textarea ng-model='TC.newPost.content'></textarea>
-    <button ng-click='TC.createPost()'>Submit!</button>
+<form class='u-cf offset-by-one eleven columns'>
+    <textarea class='u-full-width' ng-model='TC.newPost.content'></textarea>
+    <button class='u-pull-right' ng-click='TC.createPost()'>Submit!</button>
 </form>
 <hr>
 
 <div class='Post' ng-repeat='post in TC.displayTopic.posts | orderBy:"-created_at"'>
-    <!-- username: post -->
-    <p><a ng-href="#/user/{{post._user._id}}"><span ng-bind='post._user.name'></span></a> : <span ng-bind='post.content'></span></p>
+    <div class='row'>
+        <!-- username: post -->
+        <p class='eight columns'><a ng-href="#/user/{{post._user._id}}"><span ng-bind='post._user.name'></span></a> : <span ng-bind='post.content'></span></p>
 
-    <!-- Have people be able to like or dislike the post -->
-    <!-- user who posted cannot like or dislike his own post -->
-    <p>
-        <button ng-click="TC.updateLikes(post, TC.current_user)">like <span ng-bind='post.likes'></span></button> 
-        <button ng-click="TC.updateDislikes(post, TC.current_user)">dislike <span ng-bind='post.dislikes'></span></button> 
-    </p>
+        <!-- Have people be able to like or dislike the post -->
+        <!-- user who posted cannot like or dislike his own post -->
+        <div class='u-pull-right'>
+            <button ng-click="TC.updateLikes(post, TC.current_user)">like <span ng-bind='post.likes'></span></button> 
+            <button ng-click="TC.updateDislikes(post, TC.current_user)">dislike <span ng-bind='post.dislikes'></span></button> 
+        </div>
+    </div>
 
     <!-- have comments relating to the post here -->
-    <div class='Comments' ng-repeat='comment in post.comments'>
-        {{comment._user.name}}
-        {{comment.content}}
+    <!-- comments are ordered descending by comment.created_at -->
+    <div class='comments offset-by-one eleven columns' ng-repeat='comment in post.comments | orderBy:"-created_at"'>
+        <div class='offset-by-one'>
+            <a ng-href="#/user/{{comment._user._id}}">
+                <span ng-bind='comment._user.name'></span>
+            </a> : <span ng-bind='comment.content'></span>
+        </div>
     </div>
 
     <!-- make it so when you are typing in a comment, it does not show up in other boxes -->
-    <form>
-        <textarea ng-model='post.newComment.content'></textarea>
-        <button ng-click='TC.createComment(post)'>Comment!</button>
+    <form class='u-cf offset-by-one eleven columns'>
+        <textarea class='u-full-width' ng-model='post.newComment.content'></textarea>
+        <button class='u-pull-right' ng-click='TC.createComment(post)'>Comment!</button>
     </form>
     <hr>
 </div>
-
-<ul ng-repeat="post in TC.displayTopic.posts | orderBy:'-created_at'">
-<!-- need to use deepPopulate for these nested items -->
-<!-- need to deepPopulate comments._user.name -->
-    <li ng-bind='post._user._id'></li>
-    <li ng-bind='post.content'></li>
-    <li ng-bind='post._user.name'></li>
-    <li ng-bind='post.comments'></li>
-    <li ng-bind='post.created_at'></li>
-</ul>
