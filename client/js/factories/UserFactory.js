@@ -1,14 +1,13 @@
-myApp.factory('UserFactory', function ($http) {
+myApp.factory('UserFactory', function ($http, $cookies) {
     var factory = {};
     var _UF = this;
 
     factory.create = function(newUser, callback) {
         $http.post('/user', newUser).success(function (output) {
             // Output should be a UserObj from the database
-            // Set logged in user (current_user) to the output
-            // Send current_user back to UsersController
-            _UF.current_user = output;
-            callback(_UF.current_user);
+            // Create a cookie for currentUser
+            $cookies.putObject('currentUser', output);
+            callback();
         });
     }
 
@@ -28,17 +27,13 @@ myApp.factory('UserFactory', function ($http) {
     factory.update = function(newTopic, callback) {
         // console.log("UF", newTopic);
         $http.patch('/user/'+newTopic._user+'/topic', newTopic).success(function (output) {
-            console.log(output);
+            // console.log(output);
             callback();
         })
     }
 
-    factory.getCurrentUser = function(callback) {
-        callback(_UF.current_user);
-    }
-
     factory.clearCurrentUser = function (callback) {
-        _UF.current_user = null;
+        $cookies.remove('currentUser');
         callback();
     }
 

@@ -1,4 +1,4 @@
-myApp.controller('TopicsController', function ($routeParams, $location, TopicFactory, CategoryFactory, UserFactory, PostFactory, CommentFactory) {
+myApp.controller('TopicsController', function ($routeParams, $location, $cookies, TopicFactory, CategoryFactory, UserFactory, PostFactory, CommentFactory) {
     var _this = this;
 
     this.index = function () {
@@ -12,11 +12,8 @@ myApp.controller('TopicsController', function ($routeParams, $location, TopicFac
         CategoryFactory.index(function (categoriesIndex) {
             _this.categories = categoriesIndex;
         });
-        // Retrieve logged in user information from UserFactory
         // Sets user information to _this.currentUser
-        UserFactory.getCurrentUser(function (UF_currentUser) {
-            _this.current_user = UF_currentUser;
-        });
+        _this.current_user = $cookies.getObject('currentUser');
     }
 
     this.create = function () {
@@ -84,7 +81,6 @@ myApp.controller('TopicsController', function ($routeParams, $location, TopicFac
         // Created object for use in comments.js
         // post parameter is the post where the new comment is created in
         post.newComment._user = _this.current_user;
-        console.log('from the TC', post);
         CommentFactory.create(post, function () {
             // refresh page so new comments are shown
             // refreshing the page automatically clears out the form

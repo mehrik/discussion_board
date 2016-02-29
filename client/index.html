@@ -2,11 +2,15 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="static/CSS/normalize.css">
-    <link rel="stylesheet" type="text/css" href="static/CSS/skeleton.css">
+    <!-- <link rel="stylesheet" type="text/css" href="static/CSS/normalize.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="static/CSS/skeleton.css"> -->
+
+    <link rel="stylesheet" type="text/css" href="static/CSS/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="static/CSS/styles.css">
     <!-- angular scripts -->
     <script type="text/javascript" src='js/angular/angular.js'></script>
     <script type="text/javascript" src='js/angular/angular-route.js'></script>
+    <script type="text/javascript" src='js/angular/angular-cookies.js'></script>
     <script type="text/javascript" src='js/angular/angular-messages.js'></script>
 
     <script type="text/javascript" src='js/app.js'></script>
@@ -20,6 +24,6 @@
 
 </head>
 <body ng-app='myApp'>
-    <div ng-view='' class='container'></div>
+    <div ng-view=''></div>
 </body>
 </html>
