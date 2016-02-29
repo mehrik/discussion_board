@@ -1,6 +1,6 @@
 <div class='container'>
     
-    <div class='u-pull-right'>
+    <div class='pull-right'>
         <a href="#/dashboard">Dashboard</a> | <a href="" ng-click='TC.logout()'>Logout</a>
     </div>
 
@@ -16,20 +16,20 @@
 
     <!-- new post form -->
     <h4>Post you answers here...</h4>
-    <form class='u-cf offset-by-one eleven columns'>
-        <textarea class='u-full-width' ng-model='TC.newPost.content'></textarea>
-        <button class='u-pull-right' ng-click='TC.createPost()'>Submit!</button>
+    <form class='clearfix'>
+        <textarea class='form-control' ng-model='TC.newPost.content'></textarea>
+        <button class='pull-right btn btn-success' ng-click='TC.createPost()'>Submit!</button>
     </form>
     <hr>
 
     <div class='Post' ng-repeat='post in TC.displayTopic.posts | orderBy:"-created_at"'>
         <div class='row'>
             <!-- username: post -->
-            <p class='eight columns'><a ng-href="#/user/{{post._user._id}}"><span ng-bind='post._user.name'></span></a> : <span ng-bind='post.content'></span></p>
+            <p class='col-md-10'><a ng-href="#/user/{{post._user._id}}"><span ng-bind='post._user.name'></span></a> : <span ng-bind='post.content'></span></p>
 
             <!-- Have people be able to like or dislike the post -->
             <!-- user who posted cannot like or dislike his own post -->
-            <div class='u-pull-right'>
+            <div class='col-md-2 pull-right'>
                 <button ng-click="TC.updateLikes(post, TC.current_user)">like <span ng-bind='post.likes'></span></button> 
                 <button ng-click="TC.updateDislikes(post, TC.current_user)">dislike <span ng-bind='post.dislikes'></span></button> 
             </div>
@@ -46,9 +46,9 @@
         </div>
 
         <!-- make it so when you are typing in a comment, it does not show up in other boxes -->
-        <form class='u-cf offset-by-one eleven columns'>
-            <textarea class='u-full-width' ng-model='post.newComment.content'></textarea>
-            <button class='u-pull-right' ng-click='TC.createComment(post)'>Comment!</button>
+        <form class='clearfix'>
+            <textarea class='form-control' ng-model='post.newComment.content'></textarea>
+            <button class='pull-right btn btn-primary' ng-click='TC.createComment(post)'>Comment!</button>
         </form>
         <hr>
     </div>
